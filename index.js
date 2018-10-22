@@ -41,6 +41,7 @@ function updateView() {
         highlightCode();
 
         let ul = document.getElementById("signatures");
+        ul.innerHTML = "";
         for (let sign of signatures) {
                 let li = document.createElement("li");
                 let innerHTML = ""
@@ -89,12 +90,14 @@ function type(token) {
         const addrRegRE       = "\\(" + registerRE + "\\)";
         const addrImmRegRE    = immediateRE + " *" + addrRegRE;
         const addrLabImmRE    = labelRE + " *[+-] *" + immediateRE;
+        const addrLabRegRE    = labelRE + "\\(" + registerRE + "\\)";
         const addrLabImmRegRE = addrLabImmRE + " *" + addrRegRE;
 
         // Order matters!
         const rules = {
                 "Alir": RegExp("^" + addrLabImmRegRE + "$"),
                 "Ali" : RegExp("^" + addrLabImmRE + "$"),
+                "Alr" : RegExp("^" + addrLabRegRE + "$"),
                 "Air" : RegExp("^" + addrImmRegRE + "$"),
                 "Ar"  : RegExp("^" + addrRegRE + "$"),
                 "R"   : RegExp("^" + registerRE + "$"),
@@ -220,150 +223,175 @@ function validate() {
                 "la R, Air",
                 "la R, Ali",
                 "la R, Alir",
+                "la R, Alr",
                 "la R, L",
 
                 "lb R, Ar",
                 "lb R, Air",
                 "lb R, Ali",
                 "lb R, Alir",
+                "lb R, Alr",
                 "lb R, L",
 
                 "lbu R, Ar",
                 "lbu R, Air",
                 "lbu R, Ali",
                 "lbu R, Alir",
+                "lbu R, Alr",
                 "lbu R, L",
 
                 "lh R, Ar",
                 "lh R, Air",
                 "lh R, Ali",
                 "lh R, Alir",
+                "lh R, Alr",
                 "lh R, L",
 
                 "lhu R, Ar",
                 "lhu R, Air",
                 "lhu R, Ali",
                 "lhu R, Alir",
+                "lhu R, Alr",
                 "lhu R, L",
 
                 "lw R, Ar",
                 "lw R, Air",
                 "lw R, Ali",
                 "lw R, Alir",
+                "lw R, Alr",
                 "lw R, L",
 
                 "lwc1 R, Ar",
                 "lwc1 R, Air",
                 "lwc1 R, Ali",
                 "lwc1 R, Alir",
+                "lwc1 R, Alr",
                 "lwc1 R, L",
 
                 "lwl R, Ar",
                 "lwl R, Air",
                 "lwl R, Ali",
                 "lwl R, Alir",
+                "lwl R, Alr",
                 "lwl R, L",
 
                 "lwr R, Ar",
                 "lwr R, Air",
                 "lwr R, Ali",
                 "lwr R, Alir",
+                "lwr R, Alr",
                 "lwr R, L",
 
                 "ld R, Ar",
                 "ld R, Air",
                 "ld R, Ali",
                 "ld R, Alir",
+                "ld R, Alr",
                 "ld R, L",
 
                 "ulh R, Ar",
                 "ulh R, Air",
                 "ulh R, Ali",
                 "ulh R, Alir",
+                "ulh R, Alr",
                 "ulh R, L",
 
                 "ulhu R, Ar",
                 "ulhu R, Air",
                 "ulhu R, Ali",
                 "ulhu R, Alir",
+                "ulhu R, Alr",
                 "ulhu R, L",
 
                 "ulw R, Ar",
                 "ulw R, Air",
                 "ulw R, Ali",
                 "ulw R, Alir",
+                "ulw R, Alr",
                 "ulw R, L",
 
                 "ll R, Ar",
                 "ll R, Air",
                 "ll R, Ali",
                 "ll R, Alir",
+                "ll R, Alr",
                 "ll R, L",
 
                 "sb R, Ar",
                 "sb R, Air",
                 "sb R, Ali",
                 "sb R, Alir",
+                "sb R, Alr",
                 "sb R, L",
 
                 "sh R, Ar",
                 "sh R, Air",
                 "sh R, Ali",
                 "sh R, Alir",
+                "sh R, Alr",
                 "sh R, L",
 
                 "sw R, Ar",
                 "sw R, Air",
                 "sw R, Ali",
                 "sw R, Alir",
+                "sw R, Alr",
                 "sw R, L",
 
                 "swc1 R, Ar",
                 "swc1 R, Air",
                 "swc1 R, Ali",
                 "swc1 R, Alir",
+                "swc1 R, Alr",
                 "swc1 R, L",
 
                 "sdc1 R, Ar",
                 "sdc1 R, Air",
                 "sdc1 R, Ali",
                 "sdc1 R, Alir",
+                "sdc1 R, Alr",
                 "sdc1 R, L",
 
                 "swl R, Ar",
                 "swl R, Air",
                 "swl R, Ali",
                 "swl R, Alir",
+                "swl R, Alr",
                 "swl R, L",
 
                 "swr R, Ar",
                 "swr R, Air",
                 "swr R, Ali",
                 "swr R, Alir",
+                "swr R, Alr",
                 "swr R, L",
 
                 "sd R, Ar",
                 "sd R, Air",
                 "sd R, Ali",
                 "sd R, Alir",
+                "sd R, Alr",
                 "sd R, L",
 
                 "ush R, Ar",
                 "ush R, Air",
                 "ush R, Ali",
                 "ush R, Alir",
+                "ush R, Alr",
                 "ush R, L",
 
                 "usw R, Ar",
                 "usw R, Air",
                 "usw R, Ali",
                 "usw R, Alir",
+                "usw R, Alr",
                 "usw R, L",
 
                 "sc R, Ar",
                 "sc R, Air",
                 "sc R, Ali",
                 "sc R, Alir",
+                "sc R, Alr",
                 "sc R, L",
 
                 "move R, R",
@@ -408,12 +436,14 @@ function validate() {
                 "l.d R, Air",
                 "l.d R, Ali",
                 "l.d R, Alir",
+                "l.d R, Alr",
                 "l.d R, L",
 
                 "l.s R, Ar",
                 "l.s R, Air",
                 "l.s R, Ali",
                 "l.s R, Alir",
+                "l.s R, Alr",
                 "l.s R, L",
 
                 "mov.d R, R",
@@ -439,12 +469,14 @@ function validate() {
                 "s.d R, Air",
                 "s.d R, Ali",
                 "s.d R, Alir",
+                "s.d R, Alr",
                 "s.d R, L",
 
                 "s.s R, Ar",
                 "s.s R, Air",
                 "s.s R, Ali",
                 "s.s R, Alir",
+                "s.s R, Alr",
                 "s.s R, L",
 
                 "sub.d R, R, R",
